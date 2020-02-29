@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+    rabbitmq.cafe:
+        image: rabbitmq:3.8.2-management
+        container_name: rabbitmq.cafe
+        ports: ["15672:15672", "5672:5672"]
+        restart: always
+        environment:
+            - RABBITMQ_DEFAULT_USER=test
+            - RABBITMQ_DEFAULT_PASS=test        
+    seq.cafe:
+        image: datalust/seq:latest
+        container_name: seq.cafe
+        ports: ["80:80", "5341:5341"]
+        restart: always
+        environment:
+            - ACCEPT_EULA=Y
+networks:
+    default:
+        external:
+            name: learncafe-network
