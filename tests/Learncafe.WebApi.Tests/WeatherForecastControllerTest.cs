@@ -37,7 +37,7 @@ namespace Learncafe.WebApi.Tests
         //}
 
         [Fact]
-        public async Task ImportPolicies_EmptyContent_ShouldReturnUnsupportedMediaType()
+        public async Task WeatherForecast_ShouldReturnOK()
         {
             //Arrange
             var client = Factory.CreateClient();

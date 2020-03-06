@@ -3,6 +3,7 @@ using Learncafe.WebApi.Queries;
 using Learncafe.WebApi.Responses;
 using Learncafe.WebApi.Services;
 using MediatR;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace Learncafe.WebApi.Handlers
 {
     public class GetWeatherHandler : IRequestHandler<WeatherQuery, List<WeatherForecastResponse>>
     {
-        private IWeatherService _weatherService;
-        private IMapper _mapper;
+        private readonly IWeatherService _weatherService;
+        private readonly IMapper _mapper;
 
         public GetWeatherHandler(IWeatherService weatherService, IMapper mapper)
         {

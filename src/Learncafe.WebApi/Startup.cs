@@ -32,10 +32,13 @@ namespace Learncafe.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddHttpContextAccessor();
+
             services.AddMediatR(typeof(Startup));
             services.AddTransient<IMapper, Mapper>();
             services.AddTransient<IWeatherService, WeatherService>();
             services.AddTransient<IMessageBus, MessageBus>();
+            
             services.AddMassTransit(x =>
             {
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>
