@@ -17,4 +17,6 @@ Format .yaml wymaga uwagi i odpowiednich "spacji" i poziomów - uwaga na taby it
     git reset --hard
     git status
 
-
+## dotnet polecenia
+    dotnet new xunit -o Learncafe.TestUtilities --dry-run
+    dotnet new -u
