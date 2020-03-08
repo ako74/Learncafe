@@ -16,6 +16,7 @@ using Learncafe.WebApi.Services;
 using MassTransit;
 using Learncafe.WebApi.Messages;
 using Serilog;
+using Microsoft.OpenApi.Models;
 
 namespace Learncafe.WebApi
 {
@@ -33,8 +34,8 @@ namespace Learncafe.WebApi
         {
             services.AddControllers();
             services.AddHttpContextAccessor();
-
             services.AddMediatR(typeof(Startup));
+
             services.AddTransient<IMapper, Mapper>();
             services.AddTransient<IWeatherService, WeatherService>();
             services.AddTransient<IMessageBus, MessageBus>();
@@ -60,6 +61,11 @@ namespace Learncafe.WebApi
 
                 }));
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +73,9 @@ namespace Learncafe.WebApi
         {
             loggerFactory.AddSerilog();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

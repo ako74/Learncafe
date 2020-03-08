@@ -11,7 +11,7 @@ using Xunit;
 namespace Learncafe.WebApi.Tests
 {
 
-    public class WeatherForecastControllerTest : LearnCafeTestBase<LearncafeWebApplicationFactory>
+    public class WeatherForecastControllerTest : LearncafeTestBase<LearncafeWebApplicationFactory>
     {
         public WeatherForecastControllerTest([NotNull] LearncafeWebApplicationFactory factory) : base(factory) { }
 

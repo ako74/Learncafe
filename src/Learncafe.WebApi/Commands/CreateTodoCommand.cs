@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Learncafe.WebApi.Commands
 {
-    public class CreateTaskCommand : IRequest<CreateTaskResponse>
+    public class CreateTodoCommand : IRequest<CreateTaskResponse>
     {
         public String TaskName { get; set; }
     }

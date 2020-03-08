@@ -5,10 +5,10 @@ using Xunit;
 
 namespace Learncafe.TestUtilities
 {
-    public abstract class LearnCafeTestBase<T>: IClassFixture<T>
+    public abstract class LearncafeTestBase<T>: IClassFixture<T>
         where T : LearncafeWebApplicationFactoryBase
     {
-        protected LearnCafeTestBase([NotNull] T factory)
+        protected LearncafeTestBase([NotNull] T factory)
         {
             Factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }

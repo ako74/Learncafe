@@ -13,7 +13,6 @@ namespace Learncafe.WebApi.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IMediator _mediator;
 
@@ -26,7 +25,7 @@ namespace Learncafe.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            _logger.LogInformation($"User {User.Identity.Name} getting weather forecast");
+            _logger.LogInformation($"User {User.Identity.Name} getting weather forecast.");
             var query = new WeatherQuery();
             var result = await _mediator.Send(query);
             return Ok(result);

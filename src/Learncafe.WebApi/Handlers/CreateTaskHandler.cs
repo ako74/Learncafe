@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Learncafe.WebApi.Handlers
 {
-    public class CreateTaskHandler : IRequestHandler<CreateTaskCommand, CreateTaskResponse>
+    public class CreateTaskHandler : IRequestHandler<CreateTodoCommand, CreateTaskResponse>
     {
         private readonly IMessageBus _bus;
 
@@ -16,7 +16,7 @@ namespace Learncafe.WebApi.Handlers
             _bus = bus ?? throw new ArgumentNullException(nameof(bus));
         }
 
-        public  Task<CreateTaskResponse> Handle(CreateTaskCommand request, CancellationToken cancellationToken)
+        public  Task<CreateTaskResponse> Handle(CreateTodoCommand request, CancellationToken cancellationToken)
         {
             var message = new TaskToProcess() { TaskName = request.TaskName };
 
