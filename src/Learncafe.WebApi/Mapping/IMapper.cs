@@ -7,5 +7,6 @@ namespace Learncafe.WebApi.Mapping
     public interface IMapper
     {
         List<WeatherForecastResponse> MapWeatherForecastDtosToWeatherForecastResponses(List<WeatherForecastDto> dtos);
+        List<GetTodoResponse> MapTodoTaskDtoToGetTodoResponse(List<TodoTaskDto> dtos);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Learncafe.WebApi.Commands;
 using Learncafe.WebApi.Messages;
+using Learncafe.WebApi.Responses;
 using MediatR;
 using System;
 using System.Threading;

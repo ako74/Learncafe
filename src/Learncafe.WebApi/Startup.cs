@@ -17,6 +17,7 @@ using MassTransit;
 using Learncafe.WebApi.Messages;
 using Serilog;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Learncafe.WebApi
 {
@@ -35,11 +36,17 @@ namespace Learncafe.WebApi
             services.AddControllers();
             services.AddHttpContextAccessor();
             services.AddMediatR(typeof(Startup));
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("IsAdmin", policy => policy.Requirements.Add(new IdmGroupRequiment("Admins")));
+            });
 
             services.AddTransient<IMapper, Mapper>();
             services.AddTransient<IWeatherService, WeatherService>();
             services.AddTransient<IMessageBus, MessageBus>();
-            
+            services.AddTransient<ITodoService, SimpleTodoService>();
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
+
             services.AddMassTransit(x =>
             {
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(cfg =>

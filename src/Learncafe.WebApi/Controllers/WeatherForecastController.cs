@@ -9,17 +9,29 @@ using Microsoft.Extensions.Logging;
 
 namespace Learncafe.WebApi.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class WeatherForecastController : ControllerBase
-    {
-        private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IMediator _mediator;
 
-        public WeatherForecastController(IMediator mediator, ILogger<WeatherForecastController> logger)
+    [ApiController]
+    [Route("api/[controller]")]
+    public abstract class LearncafeController : ControllerBase
+    {
+        protected readonly ILogger _logger;
+        protected readonly IMediator _mediator;
+
+        public LearncafeController(IMediator mediator, ILoggerFactory loggerFactory)
         {
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            if(loggerFactory == null)
+            {
+                throw new ArgumentNullException(nameof(loggerFactory));
+            }
+            _logger = loggerFactory.CreateLogger(this.GetType());
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+        }
+    }
+
+    public class WeatherForecastController : LearncafeController
+    {
+        public WeatherForecastController(IMediator mediator, ILoggerFactory loggerFactory) : base(mediator, loggerFactory)
+        {
         }
 
         [HttpGet]

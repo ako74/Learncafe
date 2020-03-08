@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Learncafe.WebApi.Commands
+namespace Learncafe.WebApi.Responses
 {
     public class CreateTaskResponse
     {

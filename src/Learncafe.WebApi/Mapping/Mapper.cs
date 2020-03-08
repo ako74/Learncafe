@@ -18,5 +18,11 @@ namespace Learncafe.WebApi.Mapping
                 TemperatureC = x.TemperatureC
             }).ToList();
         }
+
+
+        public List<GetTodoResponse> MapTodoTaskDtoToGetTodoResponse(List<TodoTaskDto> dtos)
+        {
+            return dtos.Select(x => new GetTodoResponse() { TodoName = x.Name }).ToList();
+        }
     }
 }
