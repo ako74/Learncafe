@@ -18,6 +18,10 @@ using Learncafe.WebApi.Messages;
 using Serilog;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authorization;
+using Learncafe.WebApi.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Learncafe.WebApi
 {
@@ -39,7 +43,24 @@ namespace Learncafe.WebApi
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("IsAdmin", policy => policy.Requirements.Add(new IdmGroupRequiment("Admins")));
+                //options.AddPolicy("IsAdmin", policy => policy.RequireClaim("claimType", "allowedValue");
             });
+
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = Configuration["Jwt:Issuer"],
+                        ValidAudience = Configuration["Jwt:Issuer"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                    };
+                });
 
             services.AddTransient<IMapper, Mapper>();
             services.AddTransient<IWeatherService, WeatherService>();
@@ -82,7 +103,7 @@ namespace Learncafe.WebApi
 
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1"));
-            
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
